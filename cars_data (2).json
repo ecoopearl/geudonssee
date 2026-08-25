@@ -1,0 +1,777 @@
+{
+  "hyundai": {
+    "name": "현대자동차 (Hyundai)",
+    "models": {
+      "avante": {
+        "name": "아반떼 (1.6 가솔린)",
+        "cc": 1598,
+        "mpg": 15.3,
+        "trims": [
+          {
+            "id": "smart",
+            "name": "스마트",
+            "price": 1994
+          },
+          {
+            "id": "modern",
+            "name": "모던",
+            "price": 2326
+          },
+          {
+            "id": "inspiration",
+            "name": "인스퍼레이션",
+            "price": 2727
+          }
+        ],
+        "options": [
+          {
+            "id": "nav",
+            "name": "10.25인치 내비게이션",
+            "price": 80,
+            "verdict": "적합!",
+            "desc": "감가 방어 및 OTA 필수"
+          },
+          {
+            "id": "sense",
+            "name": "스마트센스 I",
+            "price": 95,
+            "verdict": "적합!",
+            "desc": "주행 안전 (크루즈/충돌방지) 필수"
+          },
+          {
+            "id": "wheel",
+            "name": "17인치 휠&타이어",
+            "price": 50,
+            "verdict": "그돈씨?",
+            "desc": "외관 치중, 승차감 및 연비 저하"
+          },
+          {
+            "id": "sunroof",
+            "name": "선루프",
+            "price": 45,
+            "verdict": "그돈씨?",
+            "desc": "실사용 빈도 낮음"
+          }
+        ],
+        "threshold": 2800,
+        "upgradeCar": "쏘나타 2.0 깡통"
+      },
+      "sonata": {
+        "name": "쏘나타 디 엣지 (2.0 가솔린)",
+        "cc": 1999,
+        "mpg": 12.6,
+        "trims": [
+          {
+            "id": "premium",
+            "name": "프리미엄",
+            "price": 2831
+          },
+          {
+            "id": "exclusive",
+            "name": "익스클루시브",
+            "price": 3201
+          },
+          {
+            "id": "inspiration",
+            "name": "인스퍼레이션",
+            "price": 3556
+          }
+        ],
+        "options": [
+          {
+            "id": "hud",
+            "name": "헤드업 디스플레이 (HUD)",
+            "price": 75,
+            "verdict": "적합!",
+            "desc": "시선 분산 방지 및 편리함"
+          },
+          {
+            "id": "cam2",
+            "name": "빌트인 캠 2",
+            "price": 45,
+            "verdict": "적합!",
+            "desc": "순정 블랙박스 및 보증 유지"
+          },
+          {
+            "id": "bose",
+            "name": "BOSE 프리미엄 사운드",
+            "price": 65,
+            "verdict": "그돈씨?",
+            "desc": "음향에 민감하지 않다면 사치"
+          }
+        ],
+        "threshold": 3700,
+        "upgradeCar": "그랜저 2.5 프리미엄"
+      },
+      "grandeur": {
+        "name": "그랜저 (2.5 가솔린)",
+        "cc": 2497,
+        "mpg": 11.7,
+        "trims": [
+          {
+            "id": "premium",
+            "name": "프리미엄",
+            "price": 3768
+          },
+          {
+            "id": "exclusive",
+            "name": "익스클루시브",
+            "price": 4258
+          },
+          {
+            "id": "calligraphy",
+            "name": "캘리그래피",
+            "price": 4688
+          }
+        ],
+        "options": [
+          {
+            "id": "hud_cam",
+            "name": "HUD + 빌트인캠2",
+            "price": 130,
+            "verdict": "적합!",
+            "desc": "고급 준대형 필수 옵션"
+          },
+          {
+            "id": "vip",
+            "name": "뒷좌석 VIP 패키지",
+            "price": 150,
+            "verdict": "그돈씨?",
+            "desc": "직접 운전 시 불필요"
+          },
+          {
+            "id": "black",
+            "name": "블랙 잉크 디자인",
+            "price": 130,
+            "verdict": "그돈씨?",
+            "desc": "단순 외관 몰딩에 과도한 비용"
+          }
+        ],
+        "threshold": 5300,
+        "upgradeCar": "제네시스 G80 깡통"
+      },
+      "tucson": {
+        "name": "투싼 (1.6 터보 가솔린)",
+        "cc": 1598,
+        "mpg": 12.5,
+        "trims": [
+          {
+            "id": "modern",
+            "name": "모던",
+            "price": 2771
+          },
+          {
+            "id": "premium",
+            "name": "프리미엄",
+            "price": 3048
+          },
+          {
+            "id": "inspiration",
+            "name": "인스퍼레이션",
+            "price": 3439
+          }
+        ],
+        "options": [
+          {
+            "id": "awd",
+            "name": "HTRAC(4륜구동)",
+            "price": 200,
+            "verdict": "그돈씨?",
+            "desc": "도심 주행 시 연비 하락 및 불필요"
+          },
+          {
+            "id": "park",
+            "name": "파킹 어시스트",
+            "price": 115,
+            "verdict": "적합!",
+            "desc": "SUV 주차 편의 극대화"
+          }
+        ],
+        "threshold": 3600,
+        "upgradeCar": "싼타페 2.5T 익스클루시브"
+      },
+      "santafe": {
+        "name": "싼타페 (2.5 터보 가솔린)",
+        "cc": 2497,
+        "mpg": 11.0,
+        "trims": [
+          {
+            "id": "exclusive",
+            "name": "익스클루시브",
+            "price": 3546
+          },
+          {
+            "id": "prestige",
+            "name": "프레스티지",
+            "price": 3794
+          },
+          {
+            "id": "calligraphy",
+            "name": "캘리그래피",
+            "price": 4373
+          }
+        ],
+        "options": [
+          {
+            "id": "seat7",
+            "name": "7인승 시트",
+            "price": 70,
+            "verdict": "그돈씨?",
+            "desc": "다자녀가 아니면 짐칸 손해"
+          },
+          {
+            "id": "hud",
+            "name": "헤드업 디스플레이",
+            "price": 60,
+            "verdict": "적합!",
+            "desc": "대형차 운전 피로도 감소"
+          }
+        ],
+        "threshold": 4800,
+        "upgradeCar": "팰리세이드 또는 제네시스 GV70"
+      }
+    }
+  },
+  "kia": {
+    "name": "기아 (KIA)",
+    "models": {
+      "k5": {
+        "name": "K5 (2.0 가솔린)",
+        "cc": 1999,
+        "mpg": 12.6,
+        "trims": [
+          {
+            "id": "prestige",
+            "name": "프레스티지",
+            "price": 2784
+          },
+          {
+            "id": "noblesse",
+            "name": "노블레스",
+            "price": 3135
+          },
+          {
+            "id": "signature",
+            "name": "시그니처",
+            "price": 3447
+          }
+        ],
+        "options": [
+          {
+            "id": "drivewise",
+            "name": "드라이브 와이즈",
+            "price": 75,
+            "verdict": "적합!",
+            "desc": "기아의 핵심 주행 안전 사양"
+          },
+          {
+            "id": "hud",
+            "name": "HUD + 빌트인캠2",
+            "price": 110,
+            "verdict": "적합!",
+            "desc": "편의성과 블랙박스 동시 해결"
+          },
+          {
+            "id": "krell",
+            "name": "KRELL 사운드",
+            "price": 60,
+            "verdict": "그돈씨?",
+            "desc": "중형급에 사운드 투자는 호불호"
+          }
+        ],
+        "threshold": 3600,
+        "upgradeCar": "K8 2.5 노블레스"
+      },
+      "k8": {
+        "name": "K8 (2.5 가솔린)",
+        "cc": 2497,
+        "mpg": 12.0,
+        "trims": [
+          {
+            "id": "noblesse_lite",
+            "name": "노블레스 라이트",
+            "price": 3358
+          },
+          {
+            "id": "noblesse",
+            "name": "노블레스",
+            "price": 3625
+          },
+          {
+            "id": "signature",
+            "name": "시그니처",
+            "price": 3986
+          }
+        ],
+        "options": [
+          {
+            "id": "awd",
+            "name": "AWD (4륜구동)",
+            "price": 220,
+            "verdict": "그돈씨?",
+            "desc": "세단에서 220만원 4륜은 사치"
+          },
+          {
+            "id": "ergo",
+            "name": "에르고 모션 시트",
+            "price": 110,
+            "verdict": "적합!",
+            "desc": "장거리 운행 시 피로도 대폭 감소"
+          }
+        ],
+        "threshold": 4800,
+        "upgradeCar": "K9 깡통 또는 제네시스 G80"
+      },
+      "sportage": {
+        "name": "스포티지 (1.6 터보 가솔린)",
+        "cc": 1598,
+        "mpg": 12.5,
+        "trims": [
+          {
+            "id": "prestige",
+            "name": "프레스티지",
+            "price": 2537
+          },
+          {
+            "id": "noblesse",
+            "name": "노블레스",
+            "price": 2947
+          },
+          {
+            "id": "signature",
+            "name": "시그니처",
+            "price": 3274
+          }
+        ],
+        "options": [
+          {
+            "id": "style",
+            "name": "스타일 패키지",
+            "price": 100,
+            "verdict": "그돈씨?",
+            "desc": "단순 외관 인치업에 100만원 소요"
+          },
+          {
+            "id": "monitor",
+            "name": "모니터링 팩",
+            "price": 100,
+            "verdict": "적합!",
+            "desc": "어라운드뷰 등 주차 보조 필수"
+          }
+        ],
+        "threshold": 3600,
+        "upgradeCar": "쏘렌토 2.5T 프레스티지"
+      },
+      "sorento": {
+        "name": "쏘렌토 (2.5 터보 가솔린)",
+        "cc": 2497,
+        "mpg": 10.8,
+        "trims": [
+          {
+            "id": "prestige",
+            "name": "프레스티지",
+            "price": 3506
+          },
+          {
+            "id": "noblesse",
+            "name": "노블레스",
+            "price": 3822
+          },
+          {
+            "id": "signature",
+            "name": "시그니처",
+            "price": 4104
+          }
+        ],
+        "options": [
+          {
+            "id": "drivewise",
+            "name": "드라이브 와이즈",
+            "price": 60,
+            "verdict": "적합!",
+            "desc": "패밀리 SUV 안전 보장"
+          },
+          {
+            "id": "sunroof",
+            "name": "파노라마 선루프",
+            "price": 115,
+            "verdict": "그돈씨?",
+            "desc": "무거워지고 잡소리 원인 제공"
+          }
+        ],
+        "threshold": 4600,
+        "upgradeCar": "모하비 또는 팰리세이드 상위"
+      },
+      "carnival": {
+        "name": "카니발 (3.5 가솔린 9인승)",
+        "cc": 3470,
+        "mpg": 9.0,
+        "trims": [
+          {
+            "id": "prestige",
+            "name": "프레스티지",
+            "price": 3470
+          },
+          {
+            "id": "noblesse",
+            "name": "노블레스",
+            "price": 3912
+          },
+          {
+            "id": "signature",
+            "name": "시그니처",
+            "price": 4246
+          }
+        ],
+        "options": [
+          {
+            "id": "hud",
+            "name": "HUD + 빌트인캠2",
+            "price": 120,
+            "verdict": "적합!",
+            "desc": "큰 차체 운전 시야 확보"
+          },
+          {
+            "id": "smart_conn",
+            "name": "스마트 커넥트",
+            "price": 110,
+            "verdict": "그돈씨?",
+            "desc": "가족용 차에 굳이 불필요한 사양"
+          }
+        ],
+        "threshold": 5000,
+        "upgradeCar": "카니발 하이리무진"
+      }
+    }
+  },
+  "bmw": {
+    "name": "BMW",
+    "models": {
+      "series3": {
+        "name": "3시리즈 (320i)",
+        "cc": 1998,
+        "mpg": 11.2,
+        "trims": [
+          {
+            "id": "base",
+            "name": "320i Base",
+            "price": 5700
+          },
+          {
+            "id": "msp",
+            "name": "320i M Sport",
+            "price": 6190
+          }
+        ],
+        "options": [
+          {
+            "id": "inno",
+            "name": "이노베이션 패키지",
+            "price": 280,
+            "verdict": "적합!",
+            "desc": "어라운드뷰/안전 사양 포함 필수"
+          },
+          {
+            "id": "m_perf",
+            "name": "M 퍼포먼스 파츠",
+            "price": 350,
+            "verdict": "그돈씨?",
+            "desc": "일상 주행엔 과도한 튜닝"
+          }
+        ],
+        "threshold": 7000,
+        "upgradeCar": "5시리즈 520i Base"
+      },
+      "series5": {
+        "name": "5시리즈 (520i)",
+        "cc": 1998,
+        "mpg": 12.1,
+        "trims": [
+          {
+            "id": "base",
+            "name": "520i Base",
+            "price": 6880
+          },
+          {
+            "id": "msp",
+            "name": "520i M Sport",
+            "price": 7330
+          }
+        ],
+        "options": [
+          {
+            "id": "bowers",
+            "name": "Bowers & Wilkins 오디오",
+            "price": 200,
+            "verdict": "적합!",
+            "desc": "프리미엄 세단 음향 완성"
+          },
+          {
+            "id": "iconic",
+            "name": "아이코닉 글로우 (조명 그릴)",
+            "price": 150,
+            "verdict": "그돈씨?",
+            "desc": "야간 외관 외엔 실익 없음"
+          }
+        ],
+        "threshold": 8800,
+        "upgradeCar": "BMW X5 또는 벤츠 E300"
+      },
+      "x3": {
+        "name": "X3 (xDrive20i)",
+        "cc": 1998,
+        "mpg": 9.8,
+        "trims": [
+          {
+            "id": "xline",
+            "name": "xLine",
+            "price": 7000
+          },
+          {
+            "id": "msp",
+            "name": "M Sport",
+            "price": 7340
+          }
+        ],
+        "options": [
+          {
+            "id": "laser",
+            "name": "레이저 라이트",
+            "price": 150,
+            "verdict": "적합!",
+            "desc": "야간 시야 압도적 개선"
+          },
+          {
+            "id": "carbon",
+            "name": "카본 익스테리어",
+            "price": 200,
+            "verdict": "그돈씨?",
+            "desc": "패밀리 SUV에 불필요"
+          }
+        ],
+        "threshold": 8000,
+        "upgradeCar": "BMW X5 xDrive30d"
+      }
+    }
+  },
+  "benz": {
+    "name": "Mercedes-Benz",
+    "models": {
+      "c_class": {
+        "name": "C-Class (C300 4MATIC)",
+        "cc": 1999,
+        "mpg": 11.2,
+        "trims": [
+          {
+            "id": "avant",
+            "name": "아방가르드",
+            "price": 6880
+          },
+          {
+            "id": "amg",
+            "name": "AMG Line",
+            "price": 7600
+          }
+        ],
+        "options": [
+          {
+            "id": "dig_light",
+            "name": "디지털 라이트",
+            "price": 250,
+            "verdict": "적합!",
+            "desc": "벤츠 최신 조명 기술 필수"
+          },
+          {
+            "id": "night",
+            "name": "나이트 패키지",
+            "price": 180,
+            "verdict": "그돈씨?",
+            "desc": "단순 검은색 몰딩 장식"
+          }
+        ],
+        "threshold": 8000,
+        "upgradeCar": "E-Class E200 아방가르드"
+      },
+      "e_class": {
+        "name": "E-Class (E300 4MATIC)",
+        "cc": 1999,
+        "mpg": 11.6,
+        "trims": [
+          {
+            "id": "excl",
+            "name": "익스클루시브",
+            "price": 8990
+          },
+          {
+            "id": "amg",
+            "name": "AMG Line",
+            "price": 9390
+          }
+        ],
+        "options": [
+          {
+            "id": "super",
+            "name": "MBUX 슈퍼스크린",
+            "price": 305,
+            "verdict": "그돈씨?",
+            "desc": "조수석 화면 실효성 부족"
+          },
+          {
+            "id": "air",
+            "name": "에어매틱 서스펜션",
+            "price": 380,
+            "verdict": "적합!",
+            "desc": "승차감을 위한 E클래스의 정수"
+          }
+        ],
+        "threshold": 11000,
+        "upgradeCar": "S-Class 엔트리 또는 GLE"
+      },
+      "glc": {
+        "name": "GLC (GLC 300 4MATIC)",
+        "cc": 1999,
+        "mpg": 10.8,
+        "trims": [
+          {
+            "id": "avant",
+            "name": "아방가르드",
+            "price": 7790
+          },
+          {
+            "id": "amg",
+            "name": "AMG Line",
+            "price": 8790
+          }
+        ],
+        "options": [
+          {
+            "id": "rear_axle",
+            "name": "리어 액슬 스티어링",
+            "price": 200,
+            "verdict": "적합!",
+            "desc": "유턴/주차 시 회전반경 대폭 축소"
+          },
+          {
+            "id": "burmester",
+            "name": "부메스터 서라운드",
+            "price": 180,
+            "verdict": "그돈씨?",
+            "desc": "SUV에 고가 오디오 효용성 의문"
+          }
+        ],
+        "threshold": 9500,
+        "upgradeCar": "GLE 450 4MATIC"
+      }
+    }
+  },
+  "audi": {
+    "name": "Audi",
+    "models": {
+      "a4": {
+        "name": "A4 (40 TFSI)",
+        "cc": 1984,
+        "mpg": 12.2,
+        "trims": [
+          {
+            "id": "base",
+            "name": "기본형",
+            "price": 5450
+          },
+          {
+            "id": "prem",
+            "name": "프리미엄",
+            "price": 6050
+          }
+        ],
+        "options": [
+          {
+            "id": "matrix",
+            "name": "매트릭스 LED 라이트",
+            "price": 180,
+            "verdict": "적합!",
+            "desc": "아우디의 핵심 조명"
+          },
+          {
+            "id": "sport",
+            "name": "스포츠 서스펜션",
+            "price": 150,
+            "verdict": "그돈씨?",
+            "desc": "전륜구동 세단에 과한 투자"
+          }
+        ],
+        "threshold": 6600,
+        "upgradeCar": "A6 45 TFSI"
+      },
+      "a6": {
+        "name": "A6 (45 TFSI 콰트로)",
+        "cc": 1984,
+        "mpg": 10.8,
+        "trims": [
+          {
+            "id": "base",
+            "name": "기본형",
+            "price": 7530
+          },
+          {
+            "id": "prem",
+            "name": "프리미엄",
+            "price": 8110
+          }
+        ],
+        "options": [
+          {
+            "id": "bo",
+            "name": "뱅앤올룹슨 사운드",
+            "price": 220,
+            "verdict": "적합!",
+            "desc": "고급 비즈니스 세단 필수"
+          },
+          {
+            "id": "hud",
+            "name": "헤드업 디스플레이",
+            "price": 150,
+            "verdict": "적합!",
+            "desc": "주행 시야 유지"
+          }
+        ],
+        "threshold": 8800,
+        "upgradeCar": "A7 55 TFSI"
+      },
+      "q5": {
+        "name": "Q5 (45 TFSI 콰트로)",
+        "cc": 1984,
+        "mpg": 10.2,
+        "trims": [
+          {
+            "id": "base",
+            "name": "기본형",
+            "price": 6930
+          },
+          {
+            "id": "prem",
+            "name": "프리미엄",
+            "price": 7530
+          }
+        ],
+        "options": [
+          {
+            "id": "air",
+            "name": "어댑티브 에어 서스펜션",
+            "price": 280,
+            "verdict": "적합!",
+            "desc": "Q5 승차감 향상의 핵심"
+          },
+          {
+            "id": "sline",
+            "name": "S Line 익스테리어",
+            "price": 200,
+            "verdict": "그돈씨?",
+            "desc": "드레스업 비용 낭비"
+          }
+        ],
+        "threshold": 8500,
+        "upgradeCar": "Q7 45 TFSI"
+      }
+    }
+  }
+}

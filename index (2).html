@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>그돈씨? - 스마트 자동차 구매 & 옵션 판독기</title>
+  <style>
+    :root {
+      --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card-bg: #ffffff;
+      --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0;
+      --badge-fit: #10b981; --badge-warning: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif; }
+    body { background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding: 30px 16px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 28px; }
+    header h1 { font-size: 28px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px; }
+    header p { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+    .api-key-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .api-key-box input { flex: 1; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; }
+    .api-key-box button { background: var(--primary); color: #fff; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .card-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; color: #1e293b; }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+    select, input[type="range"] { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: #fff; }
+    .range-val { font-size: 13px; color: var(--primary); font-weight: 700; float: right; }
+    .options-grid { display: grid; grid-template-columns: 1fr; gap: 8px; max-height: 200px; overflow-y: auto; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: #fafafa; }
+    .option-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; cursor: pointer; background: #fff; }
+    .calc-btn { width: 100%; background: #0f172a; color: #fff; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    .calc-btn:hover { background: #334155; }
+    .result-section { margin-top: 24px; display: none; }
+    .verdict-header { border-radius: 12px; padding: 18px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .verdict-safe { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+    .verdict-warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+    .verdict-danger { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+    .badge { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #fff; }
+    .badge-fit { background: var(--badge-fit); } .badge-no { background: var(--badge-warning); }
+    .opt-verdict-card { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #fafafa; margin-bottom: 8px; }
+    .opt-verdict-card-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .cost-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+    .cost-table td { padding: 8px 4px; border-bottom: 1px solid var(--border); }
+    .cost-table td:last-child { text-align: right; font-weight: 600; }
+    .alert-banner { background: #fff1f2; border: 1px solid #fda4af; border-radius: 10px; padding: 14px; color: #9f1239; margin-top: 16px; font-size: 13px; }
+    .loading-spinner { display: none; text-align: center; margin: 20px 0; font-weight: 600; color: var(--primary); }
+    .error-msg { color: #ef4444; font-weight: bold; text-align: center; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🚗 그돈씨? 전 차종 옵션 & 유지비 판독기</h1>
+    <p>현대 / 기아 / BMW / Benz / Audi 국산 및 수입차 가성비 검증 (JSON 연동형)</p>
+  </header>
+
+  <div class="api-key-box">
+    <span style="font-size: 20px;">🔑</span>
+    <input type="password" id="apiKeyInput" placeholder="Google AI Studio API 키 입력 (맞춤 조언용)">
+    <button onclick="saveApiKey()">키 저장</button>
+  </div>
+
+  <div id="dataError" class="error-msg" style="display: none;"></div>
+
+  <div class="grid" id="mainUI" style="display: none;">
+    <div class="card">
+      <div class="card-title">1. 차량 및 옵션 선택</div>
+      <div class="form-group">
+        <label>제조사</label>
+        <select id="brandSelect" onchange="onBrandChange()"></select>
+      </div>
+      <div class="form-group">
+        <label>모델</label>
+        <select id="modelSelect" onchange="onModelChange()"></select>
+      </div>
+      <div class="form-group">
+        <label>트림</label>
+        <select id="trimSelect" onchange="calculateTotal()"></select>
+      </div>
+      <div class="form-group">
+        <label>추가 선택 옵션</label>
+        <div class="options-grid" id="optionsContainer"></div>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; margin-top: 12px;">
+        예상 총액: <span id="totalCarPrice" style="color: var(--primary); font-size: 20px;">0</span> 만 원
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">2. 재정 상태</div>
+      <div class="form-group">
+        <label>연소득 <span class="range-val" id="incomeVal">5,000만 원</span></label>
+        <input type="range" id="incomeRange" min="2500" max="25000" step="100" value="5000" oninput="updateRange('incomeRange', 'incomeVal')">
+      </div>
+      <div class="form-group">
+        <label>선수금 <span class="range-val" id="downVal">2,000만 원</span></label>
+        <input type="range" id="downRange" min="0" max="15000" step="100" value="2000" oninput="updateRange('downRange', 'downVal')">
+      </div>
+      <div class="form-group">
+        <label>할부 기간</label>
+        <select id="instMonth">
+          <option value="36">36개월</option><option value="48">48개월</option><option value="60" selected>60개월</option><option value="0">일시불</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>연간 주행거리</label>
+        <select id="mileage">
+          <option value="10000">10,000 km</option><option value="15000" selected>15,000 km</option><option value="20000">20,000 km</option>
+        </select>
+      </div>
+      <button class="calc-btn" id="runBtn" onclick="runVerdict()">AI 그돈씨 판독 실행하기 ⚡</button>
+    </div>
+  </div>
+
+  <div class="loading-spinner" id="loadingSpinner">AI가 판독 중입니다...</div>
+
+  <!-- 결과 -->
+  <div class="result-section" id="resultSection">
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-title">📊 판독 결과 보고서</div>
+      <div id="verdictBanner" class="verdict-header">
+        <div>
+          <div style="font-size: 13px; font-weight: 600;">소득 적합도</div>
+          <div style="font-size: 20px; font-weight: 800;" id="verdictMain">-</div>
+        </div>
+        <div style="font-size: 14px;" id="verdictRatio"></div>
+      </div>
+      <div id="upgradeAlertBox" class="alert-banner" style="display: none;"></div>
+      <div class="grid" style="margin-top: 16px;">
+        <div>
+          <h4>💡 옵션 가성비</h4>
+          <div id="optionVerdictList" style="margin-top: 8px;"></div>
+        </div>
+        <div>
+          <h4>💰 연간 유지비 & 세금</h4>
+          <table class="cost-table">
+            <tr><td>취등록세</td><td id="taxAcq"></td></tr>
+            <tr><td>연간 자동차세</td><td id="taxAnnual"></td></tr>
+            <tr><td>연간 유류비</td><td id="fuelCost"></td></tr>
+            <tr><td>연간 보험료</td><td id="insCost"></td></tr>
+            <tr style="color: var(--primary);"><td>월 예상 납입금</td><td id="monthlyTotal"></td></tr>
+          </table>
+          <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted);" id="aiComment"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let ALL_CARS = {};
+
+async function loadData() {
+  try {
+    const res = await fetch('./cars_data.json');
+    if (!res.ok) throw new Error("JSON 파일을 찾을 수 없습니다.");
+    ALL_CARS = await res.json();
+    initUI();
+  } catch (e) {
+    document.getElementById("dataError").style.display = "block";
+    document.getElementById("dataError").innerText = "오류: cars_data.json 파일을 불러오지 못했습니다. 깃허브에 JSON 파일이 업로드되었는지 확인해주세요.";
+  }
+}
+
+function initUI() {
+  document.getElementById("mainUI").style.display = "grid";
+  const bSelect = document.getElementById("brandSelect");
+  for (let key in ALL_CARS) {
+    let opt = document.createElement("option");
+    opt.value = key;
+    opt.innerText = ALL_CARS[key].name;
+    bSelect.appendChild(opt);
+  }
+  
+  const savedKey = localStorage.getItem("gemini_api_key");
+  if (savedKey) document.getElementById("apiKeyInput").value = savedKey;
+
+  onBrandChange();
+}
+
+function saveApiKey() {
+  const key = document.getElementById("apiKeyInput").value.trim();
+  if (key) {
+    localStorage.setItem("gemini_api_key", key);
+    alert("API 키가 저장되었습니다.");
+  }
+}
+
+function updateRange(inputId, textId) {
+  document.getElementById(textId).innerText = Number(document.getElementById(inputId).value).toLocaleString() + "만 원";
+  calculateTotal();
+}
+
+function onBrandChange() {
+  const bKey = document.getElementById("brandSelect").value;
+  const mSelect = document.getElementById("modelSelect");
+  mSelect.innerHTML = "";
+  for (let mKey in ALL_CARS[bKey].models) {
+    let opt = document.createElement("option");
+    opt.value = mKey;
+    opt.innerText = ALL_CARS[bKey].models[mKey].name;
+    mSelect.appendChild(opt);
+  }
+  onModelChange();
+}
+
+function onModelChange() {
+  const bKey = document.getElementById("brandSelect").value;
+  const mKey = document.getElementById("modelSelect").value;
+  const model = ALL_CARS[bKey].models[mKey];
+
+  const tSelect = document.getElementById("trimSelect");
+  tSelect.innerHTML = "";
+  model.trims.forEach(t => {
+    let opt = document.createElement("option");
+    opt.value = t.id;
+    opt.dataset.price = t.price;
+    opt.innerText = `${t.name} (${t.price.toLocaleString()}만 원)`;
+    tSelect.appendChild(opt);
+  });
+
+  const optContainer = document.getElementById("optionsContainer");
+  optContainer.innerHTML = "";
+  if (model.options && model.options.length > 0) {
+    model.options.forEach(o => {
+      let item = document.createElement("label");
+      item.className = "option-item";
+      item.innerHTML = `<span><input type="checkbox" name="car_opt" data-name="${o.name}" data-price="${o.price}" data-verdict="${o.verdict}" data-desc="${o.desc}" onchange="calculateTotal()"> ${o.name}</span> <span style="font-weight:600;">+${o.price}만 원</span>`;
+      optContainer.appendChild(item);
+    });
+  } else {
+    optContainer.innerHTML = "<div style='font-size:12px;'>추가 옵션 없음</div>";
+  }
+  calculateTotal();
+}
+
+function calculateTotal() {
+  const tSelect = document.getElementById("trimSelect");
+  let total = tSelect.options.length > 0 ? Number(tSelect.options[tSelect.selectedIndex].dataset.price) : 0;
+  document.querySelectorAll('input[name="car_opt"]:checked').forEach(o => total += Number(o.dataset.price));
+  document.getElementById("totalCarPrice").innerText = total.toLocaleString();
+  return total;
+}
+
+async function runVerdict() {
+  const apiKey = document.getElementById("apiKeyInput").value.trim() || localStorage.getItem("gemini_api_key");
+  const total = calculateTotal();
+  const inc = Number(document.getElementById("incomeRange").value);
+  const down = Number(document.getElementById("downRange").value);
+  const months = Number(document.getElementById("instMonth").value);
+  const mil = Number(document.getElementById("mileage").value);
+
+  const bKey = document.getElementById("brandSelect").value;
+  const mKey = document.getElementById("modelSelect").value;
+  const model = ALL_CARS[bKey].models[mKey];
+  
+  const checkedOpts = Array.from(document.querySelectorAll('input[name="car_opt"]:checked')).map(o => ({
+    name: o.dataset.name, price: o.dataset.price, verdict: o.dataset.verdict, desc: o.dataset.desc
+  }));
+
+  const taxAcq = Math.round(total * 10000 * 0.07);
+  const taxAnnual = Math.round(model.cc <= 1600 ? model.cc * 140 * 1.3 : model.cc * 200 * 1.3);
+  const fuel = Math.round((mil / model.mpg) * 1680);
+  const ins = Math.round((bKey === 'hyundai' || bKey === 'kia') ? 850000 : 1700000);
+
+  const loan = Math.max(0, (total - down) * 10000);
+  let monLoan = 0;
+  if (months > 0 && loan > 0) {
+    const r = ((bKey === 'hyundai' || bKey === 'kia') ? 0.055 : 0.065) / 12;
+    monLoan = Math.round((loan * r * Math.pow(1+r, months)) / (Math.pow(1+r, months) - 1));
+  }
+  
+  const monRun = Math.round((fuel + taxAnnual + ins) / 12);
+  const monTotal = monLoan + monRun;
+  const ratio = ((monTotal / Math.round((inc * 10000) / 12)) * 100).toFixed(1);
+
+  document.getElementById("taxAcq").innerText = taxAcq.toLocaleString() + " 원";
+  document.getElementById("taxAnnual").innerText = taxAnnual.toLocaleString() + " 원";
+  document.getElementById("fuelCost").innerText = fuel.toLocaleString() + " 원";
+  document.getElementById("insCost").innerText = ins.toLocaleString() + " 원";
+  document.getElementById("monthlyTotal").innerText = monTotal.toLocaleString() + " 원 / 월";
+  document.getElementById("verdictRatio").innerText = `소득 대비 지출: ${ratio}%`;
+
+  const banner = document.getElementById("verdictBanner");
+  const vMain = document.getElementById("verdictMain");
+  banner.className = "verdict-header";
+  if (ratio > 26 || total > inc * 0.7) { banner.classList.add("verdict-danger"); vMain.innerText = "🚨 위험 (과도한 지출)"; }
+  else if (ratio > 18 || total > inc * 0.5) { banner.classList.add("verdict-warn"); vMain.innerText = "⚠️ 주의 (다소 부담)"; }
+  else { banner.classList.add("verdict-safe"); vMain.innerText = "✅ 적합 (안전)"; }
+
+  const alertBox = document.getElementById("upgradeAlertBox");
+  if (total >= model.threshold) {
+    alertBox.style.display = "block"; alertBox.innerHTML = `⚠️ <strong>차급 역전 (그돈씨):</strong> 이 돈이면 <strong>${model.upgradeCar}</strong> 구매 가능!`;
+  } else alertBox.style.display = "none";
+
+  const optList = document.getElementById("optionVerdictList");
+  optList.innerHTML = "";
+  if (checkedOpts.length === 0) optList.innerHTML = "<div style='font-size:12px;'>선택된 옵션 없음</div>";
+  else {
+    checkedOpts.forEach(o => {
+      optList.innerHTML += `<div class='opt-verdict-card'><div class='opt-verdict-card-top'><strong>${o.name}</strong><span class='badge ${o.verdict==='적합!'?'badge-fit':'badge-no'}'>${o.verdict}</span></div><div style='font-size:12px;color:#64748b;'>${o.desc}</div></div>`;
+    });
+  }
+
+  document.getElementById("resultSection").style.display = "block";
+
+  if (apiKey) {
+    document.getElementById("loadingSpinner").style.display = "block";
+    document.getElementById("runBtn").disabled = true;
+    try {
+      const prompt = `차종:${model.name}, 가격:${total}만원, 소득:${inc}만원, 월유지비:${monTotal}원(소득의 ${ratio}%). 이 구매가 합리적인지 2~3줄로 냉철하게 조언해줘.`;
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      });
+      const data = await res.json();
+      document.getElementById("aiComment").innerText = "💬 AI: " + data.candidates[0].content.parts[0].text;
+    } catch (e) {
+      console.error(e);
+    } finally {
+      document.getElementById("loadingSpinner").style.display = "none";
+      document.getElementById("runBtn").disabled = false;
+    }
+  } else {
+    document.getElementById("aiComment").innerText = "💡 API 키 입력 시 맞춤 조언 제공됨.";
+  }
+}
+
+window.onload = loadData;
+</script>
+</body>
+</html>
